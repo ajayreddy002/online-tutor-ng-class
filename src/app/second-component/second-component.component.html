@@ -1,0 +1,8 @@
+<p>Id is {{id}} and name is {{firstData}}</p>
+<input type="text" [(ngModel)]="firstNgModel">
+
+<p *ngIf="isNameCreated; else noName">Name is created{{firstNgModel}}</p>
+<ng-template #noName>
+    <p>No name was created</p>
+</ng-template>
+<button (click)="createName()">Create</button>
