@@ -12,6 +12,15 @@ export class SecondComponentComponent implements OnInit {
   isNameCreated = false;
   id = 20;
   isDisabled = false;
+  
+  students = [
+    {id:1, name: 'Ajay', email: 'ajay@gmail.com'},
+    {id:1, name: 'Ajay 1', email: 'ajay1@gmail.com'},
+    {id:1, name: 'Ajay 2', email: 'ajay2@gmail.com'},
+    {id:1, name: 'Ajay 3', email: 'ajay3@gmail.com'},
+    {id:1, name: 'Ajay 4', email: 'ajay4@gmail.com'},
+  ]
+
   constructor() {
     setTimeout(() => {
       this.isDisabled = true;

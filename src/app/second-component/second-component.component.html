@@ -1,8 +1,29 @@
 <p>Id is {{id}} and name is {{firstData}}</p>
 <input type="text" [(ngModel)]="firstNgModel">
 
-<p *ngIf="isNameCreated; else noName">Name is created{{firstNgModel}}</p>
-<ng-template #noName>
+<p *ngIf="isNameCreated" [ngStyle]="isNameCreated && {'background-color':'green'}">Name is created{{firstNgModel}}</p>
+<!-- <p *ngIf="isNameCreated; else noName">Name is created{{firstNgModel}}</p> -->
+<!-- <ng-template #noName>
     <p>No name was created</p>
-</ng-template>
+</ng-template> -->
+<p *ngIf="!isNameCreated" [ngStyle]="!isNameCreated && {'background-color':'red'}" [ngClass]="{'bg--red': !isNameCreated}">No name was created</p>
 <button (click)="createName()">Create</button>
+
+<!-- Ng for -->
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Syntax for ngFor let object of array -->
+        <tr *ngFor="let student of students">
+            <td>{{student.id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+        </tr>
+    </tbody>
+</table>
