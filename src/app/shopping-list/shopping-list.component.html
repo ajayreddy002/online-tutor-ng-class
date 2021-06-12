@@ -1,0 +1,39 @@
+<div class="shop--main p-4">
+    <div class="form--block mb-3" *ngIf="isFormShow">
+        <form>
+            <div class="mb-3">
+                <label for="title" class="form-label">Product Title</label>
+                <input type="text" name="title" class="form-control" id="title" [(ngModel)]="title">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Product Description</label>
+                <input type="text" name="description" class="form-control" id="description" [(ngModel)]="description">
+            </div>
+            <div class="mb-3">
+                <label for="imageUrl" class="form-label">Product Image URL</label>
+                <input type="text" name="imageUrl" class="form-control" id="imageUrl" [(ngModel)]="imageUrl">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" (click)="addProduct()">Add Product</button>
+                <button type="reset" class="btn btn-light" (click)="showPoductForm()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="!isFormShow">
+        <div class="create--product">
+            <button type="submit" class="btn btn-primary" (click)="showPoductForm()">Create Product</button>
+        </div>
+        <div class="row">
+            <div class="col-md-3" *ngFor="let shopItem of shopItems">
+                <div class="card mb-3">
+                    <img [src]="shopItem.imageUrl" class="card-img-top img-fluid" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{shopItem.title}}</h5>
+                        <p class="card-text">{{shopItem.description}}</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

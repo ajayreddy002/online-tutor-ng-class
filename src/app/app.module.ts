@@ -3,13 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { FirstComponent } from './firstcomponent/first-component';
-import { SecondComponentComponent } from './second-component/second-component.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 @NgModule({
   declarations: [
     AppComponent,
-    FirstComponent,
-    SecondComponentComponent
+    HeaderComponent,
+    FooterComponent,
+    ShoppingListComponent,
+    CartComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
