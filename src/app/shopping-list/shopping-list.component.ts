@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IShopItems } from '../models/shop-item.model'
 @Component({
   selector: 'app-shopping-list',
@@ -13,9 +14,16 @@ export class ShoppingListComponent implements OnInit {
   title: string = '';
   description: string = '';
   imageUrl: string = '';
+  userData:any;
   constructor() { }
 
   ngOnInit(): void {
+    this.userData = new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      email: new FormControl,
+      password: new FormControl
+    });
   }
   showPoductForm() {
     this.isFormShow = !this.isFormShow;
@@ -28,5 +36,12 @@ export class ShoppingListComponent implements OnInit {
     } else {
       alert('Please enter valid details');
     }
+  }
+  onFormSubmit(){
+    console.log(this.userData.controls.firstName.errors.required)
+  }
+
+  deleteItem(index: number) {
+    this.shopItems.splice(index, 1)
   }
 }

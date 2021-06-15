@@ -24,16 +24,39 @@
             <button type="submit" class="btn btn-primary" (click)="showPoductForm()">Create Product</button>
         </div>
         <div class="row">
-            <div class="col-md-3" *ngFor="let shopItem of shopItems">
+            <div class="col-md-3" *ngFor="let shopItem of shopItems; let i = index">
                 <div class="card mb-3">
+                    <em class="fa fa-trash" (click)="deleteItem(i)"></em>
                     <img [src]="shopItem.imageUrl" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{shopItem.title}}</h5>
+                        <h5 class="card-title">{{shopItem?.title}}</h5>
                         <p class="card-text">{{shopItem.description}}</p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <form action="" [formGroup]="userData" autocomplete="off" (submit)="onFormSubmit()">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" name="firstName" formControlName="firstName" class="form-control" id="firstName">
+                <p *ngIf="userData.controls.firstName.touched && userData.controls.firstName.errors?.required">First name is required</p>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" name="lastName" formControlName="lastName" class="form-control" id="lastName">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" formControlName="email" class="form-control" id="email" autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" formControlName="password" class="form-control" id="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 </div>
