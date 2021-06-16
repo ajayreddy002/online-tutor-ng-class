@@ -42,19 +42,31 @@
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name</label>
                 <input type="text" name="firstName" formControlName="firstName" class="form-control" id="firstName">
-                <p *ngIf="userData.controls.firstName.touched && userData.controls.firstName.errors?.required">First name is required</p>
+                <p *ngIf="isSubmitted && (userData.controls.firstName.errors?.required)">First name is required</p>
             </div>
             <div class="mb-3">
                 <label for="lastName" class="form-label">Last Name</label>
                 <input type="text" name="lastName" formControlName="lastName" class="form-control" id="lastName">
+                <p *ngIf="isSubmitted && (userData.controls.lastName.errors?.required)">Last name is required</p>
+                <p *ngIf="isSubmitted && (userData.controls.lastName.errors?.minlength)">Last name is at least 5 characters</p>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" name="email" formControlName="email" class="form-control" id="email" autocomplete="off">
+                <p *ngIf="isSubmitted && (userData.controls.email.errors?.required)">Email is required</p>
+                <p *ngIf="isSubmitted && userData.controls.email.errors?.email">Enter valid email</p>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" formControlName="password" class="form-control" id="password">
+                <p *ngIf="isSubmitted && (userData.controls.password.errors?.required)">Password is required</p>
+                <p *ngIf="isSubmitted && userData.controls.password.errors?.pattern">Password must contain one uppercase, lowercase, number and one special character</p>
+            </div>
+            <div class="mb-3">
+                <label for="phone_number" class="form-label">Phone number</label>
+                <input type="tel" name="phone_number" formControlName="phone_number" class="form-control" id="phone_number">
+                <p *ngIf="isSubmitted && (userData.controls.phone_number.errors?.required)">Phone number is required</p>
+                <p *ngIf="isSubmitted && userData.controls.phone_number.errors?.pattern">Enter valid phone number</p>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

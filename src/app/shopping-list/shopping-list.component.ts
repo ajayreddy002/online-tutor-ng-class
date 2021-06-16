@@ -14,15 +14,17 @@ export class ShoppingListComponent implements OnInit {
   title: string = '';
   description: string = '';
   imageUrl: string = '';
-  userData:any;
+  userData: any;
+  isSubmitted: boolean;
   constructor() { }
 
   ngOnInit(): void {
     this.userData = new FormGroup({
       firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl,
-      password: new FormControl
+      lastName: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,40}$/)]),
+      phone_number: new FormControl('', [Validators.required, Validators.pattern(/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/)]),
     });
   }
   showPoductForm() {
@@ -37,8 +39,12 @@ export class ShoppingListComponent implements OnInit {
       alert('Please enter valid details');
     }
   }
-  onFormSubmit(){
-    console.log(this.userData.controls.firstName.errors.required)
+  onFormSubmit() {
+    if (this.userData.valid) {
+      this.isSubmitted = false;
+    } else {
+      this.isSubmitted = true;
+    }
   }
 
   deleteItem(index: number) {
