@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { EmployeeRegisterComponent } from './employee-register/employee-register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +17,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ShoppingListComponent,
     CartComponent,
     CheckoutComponent,
+    EmployeeRegisterComponent,
   ],
   imports: [
     BrowserModule,

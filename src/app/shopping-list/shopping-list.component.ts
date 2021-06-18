@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IShopItems } from '../models/shop-item.model'
 @Component({
   selector: 'app-shopping-list',
@@ -14,18 +14,27 @@ export class ShoppingListComponent implements OnInit {
   title: string = '';
   description: string = '';
   imageUrl: string = '';
-  userData: any;
+  userData: FormGroup;
   isSubmitted: boolean;
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.userData = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,40}$/)]),
-      phone_number: new FormControl('', [Validators.required, Validators.pattern(/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/)]),
-    });
+    // this.userData = new FormGroup({
+    //   firstName: new FormControl('', Validators.required),
+    //   lastName: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    //   email: new FormControl('', [Validators.required, Validators.email]),
+    //   password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,40}$/)]),
+    //   phone_number: new FormControl('', [Validators.required, Validators.pattern(/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/)]),
+    // });
+    this.userData = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,40}$/)]],
+      phone_number: ['', [Validators.required, Validators.pattern(/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/)]]
+    })
   }
   showPoductForm() {
     this.isFormShow = !this.isFormShow;

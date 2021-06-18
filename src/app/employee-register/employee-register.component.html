@@ -1,0 +1,55 @@
+<div class="main--block">
+    <div class="form--block">
+        <div class="header">
+            <h1>Employee Registration</h1>
+        </div>
+        <form action="" class="r--form" [formGroup]="registerForm" (submit)="registerEmployee()">
+            <!-- <div class="input--block">
+                <label for="employeeId">Employee ID: </label>
+                <input type="text" name="employeeId" placeholder="Employee ID" id="employeeId">
+            </div> -->
+            <div class="input--block">
+                <label for="employeeName">Employee Name<span class="req">*</span>: </label>
+                <input type="text" name="employeeName" placeholder="Employee Name" formControlName="employeeName" id="employeeName">
+            </div>
+            <div class="input--block">
+                <label for="designation">Designation<span class="req">*</span>: </label>
+                <select name="designation" id="designation" formControlName="designation">
+                    <option value="Manager">Manager</option>
+                    <option value="Software Developer">Software Developer</option>
+                    <option value="Software Testers">Software Testers</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <div class="input--block">
+                <label for="salary">Salary<span class="req">*</span>:</label>
+                <input type="text" name="salary" placeholder="Salary" id="salary" formControlName="salary">
+            </div>
+            <div class="input--block">
+                <label for="email">Email<span class="req">*</span>:</label>
+                <input type="email" name="email" placeholder="Email" id="email" formControlName="email">
+            </div>
+            <div class="input--block">
+                <label for="mobile">Mobile</label>
+                <input type="text" name="mobile" placeholder="Mobile" id="mobile" formControlName="mobile">
+            </div>
+            <div class="input--block">
+                <label for="gender">Gender</label>
+                <input type="radio" name="gender" id="gender" value="Male" formControlName="gender">Male
+                <input type="radio" name="gender" id="gender" value="Female" formControlName="gender">Female
+                <input type="radio" name="gender" id="gender" value="Others" formControlName="gender">Others
+            </div>
+            <div class="input--block">
+                <label for="languages">Languages Known</label>
+                English<input type="checkbox" name="languages" id="languages" formControlName="English">
+                Hindi<input type="checkbox" name="languages" id="languages" formControlName="Hindi">
+            </div>
+            <div class="input--block">
+                <label for="qualification">Qualification</label>
+                <input type="text" name="qualification" placeholder="qualification" id="qualification" formControlName="qualification">
+            </div>
+            <button type="submit" >Register</button>
+            <button type="reset" (click)="registerForm.reset()">Reset</button>
+        </form>
+    </div>
+</div>
