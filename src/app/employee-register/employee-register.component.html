@@ -1,55 +1,138 @@
 <div class="main--block">
-    <div class="form--block">
-        <div class="header">
+    <div class="form--block" *ngIf="viewType === 'register'">
+        <div class="header d-flex justiy-content-center">
             <h1>Employee Registration</h1>
         </div>
         <form action="" class="r--form" [formGroup]="registerForm" (submit)="registerEmployee()">
-            <!-- <div class="input--block">
-                <label for="employeeId">Employee ID: </label>
-                <input type="text" name="employeeId" placeholder="Employee ID" id="employeeId">
-            </div> -->
-            <div class="input--block">
-                <label for="employeeName">Employee Name<span class="req">*</span>: </label>
-                <input type="text" name="employeeName" placeholder="Employee Name" formControlName="employeeName" id="employeeName">
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="employeeName">Employee Name<span class="req">*</span>: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="employeeName" placeholder="Employee Name"
+                            formControlName="employeeName" class="form-control" id="employeeName">
+                    </div>
+                </div>
             </div>
-            <div class="input--block">
-                <label for="designation">Designation<span class="req">*</span>: </label>
-                <select name="designation" id="designation" formControlName="designation">
-                    <option value="Manager">Manager</option>
-                    <option value="Software Developer">Software Developer</option>
-                    <option value="Software Testers">Software Testers</option>
-                    <option value="Admin">Admin</option>
-                </select>
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="designation">Designation<span class="req">*</span>: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <select name="designation" class="form-select" id="designation" formControlName="designation">
+                            <option value="" selected disabled>Select Designation</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Software Developer">Software Developer</option>
+                            <option value="Software Testers">Software Testers</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="input--block">
-                <label for="salary">Salary<span class="req">*</span>:</label>
-                <input type="text" name="salary" placeholder="Salary" id="salary" formControlName="salary">
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="salary">Salary<span class="req">*</span>:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="salary" placeholder="Salary" id="salary"
+                            formControlName="salary">
+                    </div>
+                </div>
             </div>
-            <div class="input--block">
-                <label for="email">Email<span class="req">*</span>:</label>
-                <input type="email" name="email" placeholder="Email" id="email" formControlName="email">
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="email">Email<span class="req">*</span>:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" name="email" placeholder="Email" id="email"
+                            formControlName="email">
+                    </div>
+                </div>
             </div>
-            <div class="input--block">
-                <label for="mobile">Mobile</label>
-                <input type="text" name="mobile" placeholder="Mobile" id="mobile" formControlName="mobile">
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="mobile">Mobile</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="mobile" placeholder="Mobile" id="mobile"
+                            formControlName="mobile">
+                    </div>
+                </div>
             </div>
-            <div class="input--block">
+            <div class="input--block" *ngIf="actionType !== 'Edit'">
                 <label for="gender">Gender</label>
                 <input type="radio" name="gender" id="gender" value="Male" formControlName="gender">Male
                 <input type="radio" name="gender" id="gender" value="Female" formControlName="gender">Female
                 <input type="radio" name="gender" id="gender" value="Others" formControlName="gender">Others
             </div>
-            <div class="input--block">
+            <div class="input--block" *ngIf="actionType !== 'Edit'">
                 <label for="languages">Languages Known</label>
-                English<input type="checkbox" name="languages" id="languages" formControlName="English">
-                Hindi<input type="checkbox" name="languages" id="languages" formControlName="Hindi">
+                <input type="checkbox" name="languages" id="languages" formControlName="English">
+                <label for="English">English</label>
+                <input type="checkbox" name="languages" id="languages" formControlName="Hindi">
+                <label for="Hindi">Hindi</label>
             </div>
-            <div class="input--block">
-                <label for="qualification">Qualification</label>
-                <input type="text" name="qualification" placeholder="qualification" id="qualification" formControlName="qualification">
+            <div class="form-group mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="qualification">Qualification</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="qualification" placeholder="qualification"
+                            id="qualification" formControlName="qualification">
+                    </div>
+                </div>
             </div>
-            <button type="submit" >Register</button>
-            <button type="reset" (click)="registerForm.reset()">Reset</button>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary mr-3" *ngIf="actionType !== 'Edit'">Register</button>
+                    <button type="button" class="btn btn-primary mr-3" *ngIf="actionType === 'Edit'" (click)="updateEmployee()">Update</button>
+                </div>
+                <div class="col-md-8">
+                    <button type="reset" class="btn btn-secondary" (click)="registerForm.reset()" *ngIf="actionType !== 'Edit'">Reset</button>
+                    <button type="reset" class="btn btn-secondary" (click)="viewType='list'" *ngIf="actionType === 'Edit'">Cancel</button>
+                </div>
+            </div>
         </form>
     </div>
+    <ng-container *ngIf="viewType === 'list'">
+        <div class="header2 d-flex justify-content-between">
+            <h1>List of employees</h1>
+            <button class="btn btn-light btn-sm" (click)="viewType='register'">+ Add Employee</button>
+        </div>
+        <div class="list--block px-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Salary</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Qualification</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeesArray">
+                        <td>{{employee.employeeName}}</td>
+                        <td>{{employee.designation}}</td>
+                        <td>{{employee.salary}}</td>
+                        <td>{{employee.email}}</td>
+                        <td>{{employee.mobile}}</td>
+                        <td>{{employee.qualification}}</td>
+                        <td class="d-flex">
+                            <button class="btn btn-primary btn-sm" (click)="editEmployee(employee)">Edit</button>
+                            <button class="btn btn-danger btn-sm ms-3">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </ng-container>
 </div>

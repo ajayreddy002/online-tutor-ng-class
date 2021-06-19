@@ -24,3 +24,30 @@
 .input--block .req {
     color: red;
 }
+.header {
+    background-color: rgb(155, 38, 116);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header2 {
+    background-color: rgb(155, 38, 116);
+    height: 60px;
+    padding: 0px 30px;
+    display: flex;
+    align-items: center;
+}
+.header h1{
+    font-size: 20px;
+    color: #fff;
+    margin: 0;
+}
+.header2 h1{
+    font-size: 20px;
+    color: #fff;
+    margin: 0;
+}
+/* .table {
+    margin: 10px 30px;
+} */

@@ -10,6 +10,8 @@ export class EmployeeRegisterComponent implements OnInit {
   registerForm: FormGroup;
   isSubmitted: boolean;
   employeesArray = [];
+  viewType = 'register';
+  actionType: string;
   constructor(
     private formBuilder: FormBuilder
   ) { }
@@ -28,6 +30,7 @@ export class EmployeeRegisterComponent implements OnInit {
       qualification: ['', Validators.required],
       languages: ['']
     });
+    this.getEmployees()
   }
   registerEmployee() {
     if (this.registerForm.valid) {
@@ -45,4 +48,26 @@ export class EmployeeRegisterComponent implements OnInit {
     }
   }
 
+  getEmployees() {
+    if (localStorage.getItem('empData') !== null && localStorage.getItem('empData') !== undefined) {
+      this.employeesArray = JSON.parse(localStorage.getItem('empData'));
+      this.viewType = 'list'
+    }
+  }
+
+  editEmployee(employeeInfo) {
+    this.viewType = 'register';
+    this.actionType = 'Edit'
+    this.registerForm.patchValue(employeeInfo);
+  }
+
+  updateEmployee() {
+    this.employeesArray.map((item, index) => {
+      if (item.employeeId === this.registerForm.controls.employeeId.value) {
+        this.employeesArray[index] = this.registerForm.value;
+      }
+    });
+    localStorage.setItem('empData', JSON.stringify(this.employeesArray));
+    this.getEmployees();
+  }
 }
