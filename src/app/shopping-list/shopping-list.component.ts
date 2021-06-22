@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IShopItems } from '../models/shop-item.model'
 @Component({
   selector: 'app-shopping-list',
@@ -48,6 +48,7 @@ export class ShoppingListComponent implements OnInit {
       alert('Please enter valid details');
     }
   }
+
   onFormSubmit() {
     if (this.userData.valid) {
       this.isSubmitted = false;
@@ -58,5 +59,13 @@ export class ShoppingListComponent implements OnInit {
 
   deleteItem(index: number) {
     this.shopItems.splice(index, 1)
+  }
+
+  addDataTdForm(tdForm: NgForm){
+    if(tdForm.valid){
+      console.log(tdForm.value);
+    }else {
+      alert('please enter valid details')
+    }
   }
 }

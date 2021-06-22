@@ -1,5 +1,5 @@
 <div class="shop--main p-4">
-    <div class="form--block mb-3" *ngIf="isFormShow">
+    <!-- <div class="form--block mb-3" *ngIf="isFormShow">
         <form>
             <div class="mb-3">
                 <label for="title" class="form-label">Product Title</label>
@@ -48,11 +48,13 @@
                 <label for="lastName" class="form-label">Last Name</label>
                 <input type="text" name="lastName" formControlName="lastName" class="form-control" id="lastName">
                 <p *ngIf="isSubmitted && (userData.controls.lastName.errors?.required)">Last name is required</p>
-                <p *ngIf="isSubmitted && (userData.controls.lastName.errors?.minlength)">Last name is at least 5 characters</p>
+                <p *ngIf="isSubmitted && (userData.controls.lastName.errors?.minlength)">Last name is at least 5
+                    characters</p>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" formControlName="email" class="form-control" id="email" autocomplete="off">
+                <input type="email" name="email" formControlName="email" class="form-control" id="email"
+                    autocomplete="off">
                 <p *ngIf="isSubmitted && (userData.controls.email.errors?.required)">Email is required</p>
                 <p *ngIf="isSubmitted && userData.controls.email.errors?.email">Enter valid email</p>
             </div>
@@ -60,15 +62,43 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" formControlName="password" class="form-control" id="password">
                 <p *ngIf="isSubmitted && (userData.controls.password.errors?.required)">Password is required</p>
-                <p *ngIf="isSubmitted && userData.controls.password.errors?.pattern">Password must contain one uppercase, lowercase, number and one special character</p>
+                <p *ngIf="isSubmitted && userData.controls.password.errors?.pattern">Password must contain one
+                    uppercase, lowercase, number and one special character</p>
             </div>
             <div class="mb-3">
                 <label for="phone_number" class="form-label">Phone number</label>
-                <input type="tel" name="phone_number" formControlName="phone_number" class="form-control" id="phone_number">
+                <input type="tel" name="phone_number" formControlName="phone_number" class="form-control"
+                    id="phone_number">
                 <p *ngIf="isSubmitted && (userData.controls.phone_number.errors?.required)">Phone number is required</p>
                 <p *ngIf="isSubmitted && userData.controls.phone_number.errors?.pattern">Enter valid phone number</p>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div> -->
+    <!-- Template driven forms -->
+    <div>
+        <form action="" #tdForm="ngForm" (ngSubmit)="addDataTdForm(tdForm)">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First name</label>
+                <input type="text" name="firstName" class="form-control" id="firstName" ngModel required>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last name</label>
+                <input type="text" name="lastName" class="form-control" id="lastName" ngModel required minlength="5">
+                <p *ngIf="tdForm.controls.lastName?.errors?.minlength">Minimum 5 characters</p>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" id="email" ngModel required
+                pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+                >
+                <p *ngIf="tdForm.controls.email?.errors?.required">Email is required</p>
+                <p *ngIf="tdForm.controls.email?.errors?.pattern">Enter valid email</p>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Add TD Data</button>
+                <button type="reset" class="btn btn-light">Cancel</button>
+            </div>
         </form>
     </div>
 </div>
