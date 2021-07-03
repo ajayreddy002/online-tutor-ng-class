@@ -9,6 +9,12 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { EmployeeRegisterComponent } from './employee-register/employee-register.component';
+import { ChangeTextColorDirective } from './directives/change-text-color.directive';
+import { DirectiveWithRenderer } from './directives/directive-with-renderer.directive';
+import { ScrollDirective } from './directives/scroll.directive';
+import { TableModule } from 'primeng/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,11 +24,16 @@ import { EmployeeRegisterComponent } from './employee-register/employee-register
     CartComponent,
     CheckoutComponent,
     EmployeeRegisterComponent,
+    ChangeTextColorDirective,
+    DirectiveWithRenderer,
+    ScrollDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

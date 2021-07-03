@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IShopItems } from '../models/shop-item.model'
 @Component({
@@ -9,13 +9,24 @@ import { IShopItems } from '../models/shop-item.model'
 export class ShoppingListComponent implements OnInit {
   isFormShow = false;
   shopItems: IShopItems[] = [
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU' }
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
+    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
   ];
   title: string = '';
   description: string = '';
   imageUrl: string = '';
   userData: FormGroup;
   isSubmitted: boolean;
+  isCartShow = false;
+  selectedProduct: IShopItems;
+  @ViewChild('test', {static: false}) testElement: ElementRef;
+  sendCallBack;
   constructor(
     private formBuilder: FormBuilder
   ) { }
@@ -39,9 +50,16 @@ export class ShoppingListComponent implements OnInit {
   showPoductForm() {
     this.isFormShow = !this.isFormShow;
   }
+  scrollBack(event){
+    if(event === true){
+      this.shopItems.push(...this.shopItems);
+      console.log(event, 'hey scrool back')
+    }
+  }
   addProduct() {
+    console.log(document.getElementById('imageUrl'))
     if (this.title !== '' && this.description !== '' && this.imageUrl !== '') {
-      this.shopItems.push({ title: this.title, description: this.description, imageUrl: this.imageUrl });
+      this.shopItems.push({ title: this.title, description: this.description, imageUrl: this.imageUrl, price: 100 });
       this.isFormShow = false;
       this.title = ''; this.description = '', this.imageUrl = ''
     } else {
@@ -61,11 +79,24 @@ export class ShoppingListComponent implements OnInit {
     this.shopItems.splice(index, 1)
   }
 
-  addDataTdForm(tdForm: NgForm){
-    if(tdForm.valid){
+  addDataTdForm(tdForm: NgForm) {
+    if (tdForm.valid) {
       console.log(tdForm.value);
-    }else {
+    } else {
       alert('please enter valid details')
     }
+  }
+
+  addToCart(shopItem: IShopItems) {
+    this.isCartShow = true;
+    this.selectedProduct = shopItem
+  }
+
+  continueShopping(event: boolean){
+    console.log(event);
+    this.isCartShow = event;
+  }
+  submitTest(){
+    this.testElement.nativeElement.style.display = 'none';
   }
 }

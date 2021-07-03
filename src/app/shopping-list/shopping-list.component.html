@@ -1,5 +1,18 @@
 <div class="shop--main p-4">
-    <!-- <div class="form--block mb-3" *ngIf="isFormShow">
+    <div>
+        <h1 app-change-text-color app-bg-directive [defaultColor]="'red'" [hoverColor]="'skyblue'">Hey Directive</h1>
+    </div>
+    <!-- <div style="max-height: 100px; overflow: scroll;" app-scroller (sendCallBack)="scrollBack($event)">
+        <ol >
+            <li *ngFor="let item of shopItems">
+                <span>{{item?.title}}</span>
+                <span>
+                    {{item?.description}}
+                </span>
+            </li>
+        </ol>
+    </div> -->
+    <div class="form--block mb-3" *ngIf="isFormShow">
         <form>
             <div class="mb-3">
                 <label for="title" class="form-label">Product Title</label>
@@ -19,7 +32,7 @@
             </div>
         </form>
     </div>
-    <div *ngIf="!isFormShow">
+    <div *ngIf="!isFormShow && !isCartShow">
         <div class="create--product">
             <button type="submit" class="btn btn-primary" (click)="showPoductForm()">Create Product</button>
         </div>
@@ -29,15 +42,34 @@
                     <em class="fa fa-trash" (click)="deleteItem(i)"></em>
                     <img [src]="shopItem.imageUrl" class="card-img-top img-fluid" alt="...">
                     <div class="card-body">
+                        <span class="badge bg-primary ml-auto">Rs:{{shopItem?.price}} /-</span>
                         <h5 class="card-title">{{shopItem?.title}}</h5>
                         <p class="card-text">{{shopItem.description}}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a (click)="addToCart(shopItem)" class="btn btn-primary">Add to cart</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div>
+    <!-- Cart Component -->
+    <div *ngIf="isCartShow">
+        <app-cart [cartData]="selectedProduct" (continueShop)="continueShopping($event)">
+            <!-- <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">{{selectedProduct.title}}</h6>
+                        <small class="text-muted">{{selectedProduct.description}}</small>
+                    </div>
+                    <span class="text-muted">Rs: {{selectedProduct.price}} /-</span>
+                </li>
+            </ul> -->
+        </app-cart>
+    </div>
+    <div class="">
+        <input type="text" #test>
+        <button (click)="submitTest()">Test</button>
+    </div>
+    <!-- <div>
         <form action="" [formGroup]="userData" autocomplete="off" (submit)="onFormSubmit()">
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name</label>
@@ -76,7 +108,7 @@
         </form>
     </div> -->
     <!-- Template driven forms -->
-    <div>
+    <!-- <div>
         <form action="" #tdForm="ngForm" (ngSubmit)="addDataTdForm(tdForm)">
             <div class="mb-3">
                 <label for="firstName" class="form-label">First name</label>
@@ -100,5 +132,5 @@
                 <button type="reset" class="btn btn-light">Cancel</button>
             </div>
         </form>
-    </div>
+    </div> -->
 </div>
