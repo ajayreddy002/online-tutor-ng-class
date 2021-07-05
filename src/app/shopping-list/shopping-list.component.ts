@@ -1,23 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { IShopItems } from '../models/shop-item.model'
+import { IShopItems } from '../models/shop-item.model';
+import {ShoppingListService} from '../services/shopping-list.service';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.css']
+  styleUrls: ['./shopping-list.component.css'],
+  providers: [ShoppingListService]
 })
 export class ShoppingListComponent implements OnInit {
   isFormShow = false;
-  shopItems: IShopItems[] = [
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-    { title: 'tets', description: 'This is a shop item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2jk5bXERB5bP4YCHd1HJ-CFKIE2o6KlM1Q&usqp=CAU', price: 100 },
-  ];
+  shopItems: IShopItems[];
   title: string = '';
   description: string = '';
   imageUrl: string = '';
@@ -28,17 +21,13 @@ export class ShoppingListComponent implements OnInit {
   @ViewChild('test', {static: false}) testElement: ElementRef;
   sendCallBack;
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private shoppingListService: ShoppingListService
   ) { }
 
   ngOnInit(): void {
-    // this.userData = new FormGroup({
-    //   firstName: new FormControl('', Validators.required),
-    //   lastName: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,40}$/)]),
-    //   phone_number: new FormControl('', [Validators.required, Validators.pattern(/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/)]),
-    // });
+    this.getShoppingItems();
+
     this.userData = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', [Validators.required, Validators.minLength(5)]],
@@ -59,12 +48,18 @@ export class ShoppingListComponent implements OnInit {
   addProduct() {
     console.log(document.getElementById('imageUrl'))
     if (this.title !== '' && this.description !== '' && this.imageUrl !== '') {
-      this.shopItems.push({ title: this.title, description: this.description, imageUrl: this.imageUrl, price: 100 });
+      this.shoppingListService.setProductData({ title: this.title, description: this.description, imageUrl: this.imageUrl, price: 100 })
+      // this.shopItems.push({ title: this.title, description: this.description, imageUrl: this.imageUrl, price: 100 });
       this.isFormShow = false;
+      this.getShoppingItems();
       this.title = ''; this.description = '', this.imageUrl = ''
     } else {
       alert('Please enter valid details');
     }
+  }
+
+  getShoppingItems(){
+    this.shopItems = this.shoppingListService.getIntialProduct();
   }
 
   onFormSubmit() {
@@ -96,6 +91,7 @@ export class ShoppingListComponent implements OnInit {
     console.log(event);
     this.isCartShow = event;
   }
+
   submitTest(){
     this.testElement.nativeElement.style.display = 'none';
   }
